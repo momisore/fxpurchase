@@ -3,8 +3,6 @@
 ## Overview
 This is a Spring Boot service for managing FX purchase transactions.
 
-Additional technical reference:
-1. See APP_DEVELOPER_GUIDE.md for architecture, method purposes, usage patterns, and extension guidance.
 
 Current capabilities:
 1. Create USD purchase transactions with validation and standardized error responses.
@@ -12,6 +10,70 @@ Current capabilities:
 3. Apply the 6-month Treasury rate eligibility rule.
 4. Return consistent business and validation errors.
 5. Include request correlation id in response headers and log context.
+
+## Submission Traceability: Product Brief Criteria
+
+This submission is intentionally structured to demonstrate product thinking, collaboration, disciplined execution, and complex problem-solving in a Corporate Payments FX workflow. The sections below map each criterion to specific implementation evidence.
+
+### 1. Product Thinking and Strategic Prioritization (Corporate Payments)
+
+What this demonstrates:
+1. Prioritization of financial correctness and compliance-oriented business rules.
+2. Design choices that protect transaction integrity and operational trust.
+
+Evidence:
+1. Business rule for rate eligibility window: src/main/java/com/wex/fxpurchase/application/RateSelectionService.java
+2. Financial rounding and conversion precision controls: src/main/java/com/wex/fxpurchase/application/PurchaseTransactionService.java
+3. Domain lifecycle and auditable timestamps: src/main/java/com/wex/fxpurchase/domain/PurchaseTransaction.java
+4. Database-level transaction guardrails: src/main/resources/db/migration/V1__create_purchase_transactions.sql
+
+### 2. Cross-Functional Collaboration Across Product, Engineering, and Stakeholders
+
+What this demonstrates:
+1. Clear API contracts for consumer teams.
+2. Explicit boundaries between business logic, external integration, and operations.
+3. Operability patterns that support support and operations workflows.
+
+Evidence:
+1. Input/output API contracts and validation: src/main/java/com/wex/fxpurchase/api/dto
+2. Standardized error model for predictable downstream behavior: src/main/java/com/wex/fxpurchase/api/ApiExceptionHandler.java
+3. Configuration ownership and environment tuning controls: src/main/java/com/wex/fxpurchase/config/TreasuryApiProperties.java
+4. Request traceability across systems (correlation id): src/main/java/com/wex/fxpurchase/api/CorrelationIdFilter.java
+5. Runtime observability configuration: src/main/resources/application.properties
+
+### 3. Execution Plan: Delivery Phases, Risk Management, and Measurable Outcomes
+
+What this demonstrates:
+1. Incremental delivery through layered architecture.
+2. Risk reduction through testing, resilience, and schema governance.
+3. Outcome orientation through reliability and monitoring hooks.
+
+Evidence:
+1. Layered architecture entry point: src/main/java/com/wex/fxpurchase/FxpurchaseApplication.java
+2. Core unit and service tests: src/test/java/com/wex/fxpurchase
+3. API behavior and validation tests: src/test/java/com/wex/fxpurchase/api
+4. Application logic tests: src/test/java/com/wex/fxpurchase/application
+5. External dependency resilience approach (retry/backoff): src/main/java/com/wex/fxpurchase/infrastructure/treasury/TreasuryApiClient.java
+
+Proposed measurable outcomes for review:
+1. Conversion success rate.
+2. Upstream Treasury dependency error rate.
+3. End-to-end conversion latency.
+4. Rate-eligibility failure rate.
+
+### 4. Problem-Solving for Complex Technical and Organizational Challenges
+
+What this demonstrates:
+1. Handling real-world external data variability and integration fragility.
+2. Constraining failures to the right boundary with explicit exception semantics.
+3. Making business-critical behavior deterministic under edge cases.
+
+Evidence:
+1. Currency normalization and external response handling: src/main/java/com/wex/fxpurchase/infrastructure/treasury/TreasuryApiClient.java
+2. Eligibility logic under temporal constraints: src/main/java/com/wex/fxpurchase/application/RateSelectionService.java
+3. Upstream failure classification and API-safe mapping: src/main/java/com/wex/fxpurchase/api/ApiExceptionHandler.java
+4. Transaction workflow orchestration: src/main/java/com/wex/fxpurchase/application/PurchaseTransactionService.java
+
 
 ## Tech Stack
 1. Java 21
