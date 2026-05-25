@@ -3,8 +3,6 @@
 ## Overview
 This is a Spring Boot service for managing FX purchase transactions.
 
-Additional technical reference:
-1. See APP_DEVELOPER_GUIDE.md for architecture, method purposes, usage patterns, and extension guidance.
 
 Current capabilities:
 1. Create USD purchase transactions with validation and standardized error responses.
