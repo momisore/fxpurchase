@@ -1,0 +1,54 @@
+# Maven / Java build output
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+
+# Maven wrapper binary (downloaded as needed)
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs and runtime artifacts
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and local secrets
+.env
+.env.*
+*.local
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Local H2 database files (if file-based DB is used)
+*.mv.db
+*.trace.db
